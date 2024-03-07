@@ -16,4 +16,4 @@ nu.fillColor = colors.red
 drawing.add(r1)
 drawing.add(nu)
 
-drawing.save(formats=['pdf', 'png'], outDir='.', fnRoot="card-komang4s")
+drawing.save(formats=['pdf', 'png'], outDir='.', fnRoot="iku-iku-iku-iku-oo")
