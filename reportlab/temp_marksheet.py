@@ -3,7 +3,7 @@ from  datetime import date
 
 def my_temp(c):
     c.translate(inch,inch)
-# define a large font
+# define font
     c.setFont("Helvetica", 14)
 # choose some colors
     c.setStrokeColorRGB(0.1,0.8,0.1)
@@ -15,7 +15,7 @@ def my_temp(c):
     c.drawString(2*inch, 7.9*inch, " www.padi.com ")
     c.setFillColorRGB(0,0,0) # font colour
     c.line(0,7.8*inch,6.8*inch,7.8*inch)
-    dt = date.today().strftime('%d-%b-%Y') #current date as string
+    dt = date.today().strftime('%d-%b-%Y')
     c.drawString(5.6*inch,9.3*inch,dt) # print the date
     c.setFont("Helvetica", 8)
     c.drawString(3*inch,9.6*inch,'End Quarter Examination')
@@ -23,8 +23,8 @@ def my_temp(c):
     c.setFillColorRGB(1,0,0) # font colour
     c.drawString(0, -0.9*inch, u"\u00A9"+" padi.com")
     c.rotate(45)
-    c.setFillColorCMYK(0,0,0,0.08) # font colour
+    c.setFillColorCMYK(0,0,0,0.08) 
     c.setFont("Helvetica", 100)
-    c.drawString(2.5*inch, 1*inch, "SAMPLE") # watermarking
+    c.drawString(2.5*inch, 1*inch, "SAMPLE") 
     c.rotate(-45)
     return c
