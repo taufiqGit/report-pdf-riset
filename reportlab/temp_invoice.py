@@ -42,4 +42,12 @@ def my_temp(c):
     c.line(2.5*inch, 2*inch, 2.5*inch, 7.5*inch)
     c.line(3.8*inch, 2*inch, 3.8*inch, 7.5*inch)
     c.line(5.7*inch, 2*inch, 5.7*inch, 7.5*inch)
+    c.drawString(1*inch,1.6*inch,'Discount')
+    c.drawString(1*inch,1*inch,'Tax')
+    c.setFont("Times-Bold", 22)
+    c.drawString(2*inch,0.6*inch,'Total')
+    c.setFont("Times-Roman", 22)
+    c.drawString(5.6*inch,-0.1*inch,'Signature')
+    c.setStrokeColorRGB(0.1,0.8,0.1) # Bottom Line colour 
+    c.line(0,-0.7*inch,6.8*inch,-0.7*inch)
     return c
