@@ -1,8 +1,15 @@
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Table, TableStyle, Frame
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Table, TableStyle, Frame, PageTemplate
 from reportlab.lib.styles import getSampleStyleSheet
-from reportlab.lib import colors
+from reportlab.lib import colors, pagesizes
+from functools import partial
 
-pdf = SimpleDocTemplate("tutor.pdf")
+PAGESIZE = pagesizes.portrait(pagesizes.A4)
+pdf = SimpleDocTemplate("tutor.pdf",
+                         rightMargin=72,
+                         leftMargin=72,
+                         topMargin=72,
+                         bottomMargin=72,
+                         pagesizes=PAGESIZE)
 flow_obj = []
 styles = getSampleStyleSheet()
 
@@ -59,5 +66,12 @@ flow_obj.append(t)
 flow_obj.append(t)
 flow_obj.append(t)
 flow_obj.append(t)
+frame = Frame(pdf.leftMargin, pdf.bottomMargin, pdf.width, pdf.height, id='normal')
+
+header_content = Paragraph("This is a header. testing testing testing hhuuhuhuhu  ", styles['Normal'])
+footer_content = Paragraph("This is a footer. It goes on every page.  kmmommk", styles['Normal'])
+template = PageTemplate(id='test', frames=frame, onPage=partial(header_and_footer, header_content=header_content, footer_content=footer_content))
+
+pdf.addPageTemplates([template])
 
 pdf.build(flow_obj)
