@@ -1,6 +1,6 @@
 from io import BytesIO
 from reportlab.lib.pagesizes import letter, A4
-from reportlab.platypus import SimpleDocTemplate, Paragraph, TableStyle, Table
+from reportlab.platypus import SimpleDocTemplate, Paragraph, TableStyle, Table, Frame
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.enums import TA_CENTER
 from reportlab.lib.units import inch
@@ -25,14 +25,15 @@ class MyPrint:
         styles = getSampleStyleSheet()
  
         # Header
-        header = Paragraph('Header  ', styles['Normal'])
+        header = Paragraph('General Leadger Card Details', styles['Normal'])
+        # nu = Frame()
         w, h = header.wrap(doc.width, doc.topMargin)
         header.drawOn(canvas, doc.leftMargin, doc.height + 120 - h)
  
         # Footer
         footer = Paragraph('footer', styles['Normal'])
         w, h = footer.wrap(doc.width, doc.bottomMargin)
-        footer.drawOn(canvas, doc.leftMargin, h)
+        footer.drawOn(canvas, doc.leftMargin + 120, h)
  
         # Release the canvas
         canvas.restoreState()
@@ -56,126 +57,6 @@ class MyPrint:
  
         # Draw things on the PDF. Here's where the PDF generation happens.
         # See the ReportLab documentation for the full list of functionality.
-        users = [
-            {'name':'Teste'},
-            {'name':'Teste1'},
-            {'name':'Teste2'},
-            {'name':'Teste'},
-            {'name':'Teste1'},
-            {'name':'Teste2'},
-            {'name':'Teste'},
-            {'name':'Teste1'},
-            {'name':'Teste2'},
-            {'name':'Teste'},
-            {'name':'Teste1'},
-            {'name':'Teste2'},
-            {'name':'Teste'},
-            {'name':'Teste1'},
-            {'name':'Teste2'},
-            {'name':'Teste'},
-            {'name':'Teste1'},
-            {'name':'Teste2'},
-            {'name':'Teste'},
-            {'name':'Teste1'},
-            {'name':'Teste2'},
-            {'name':'Teste'},
-            {'name':'Teste1'},
-            {'name':'Teste2'},
-            {'name':'Teste'},
-            {'name':'Teste1'},
-            {'name':'Teste2'},
-            {'name':'Teste'},
-            {'name':'Teste1'},
-            {'name':'Teste2'},
-            {'name':'Teste'},
-            {'name':'Teste1'},
-            {'name':'Teste2'},
-            {'name':'Teste'},
-            {'name':'Teste1'},
-            {'name':'Teste2'},
-            {'name':'Teste'},
-            {'name':'Teste1'},
-            {'name':'Teste2'},
-            {'name':'Teste'},
-            {'name':'Teste1'},
-            {'name':'Teste2'},
-            {'name':'Teste'},
-            {'name':'Teste1'},
-            {'name':'Teste2'},
-            {'name':'Teste'},
-            {'name':'Teste1'},
-            {'name':'Teste2'},
-            {'name':'Teste'},
-            {'name':'Teste1'},
-            {'name':'Teste2'},
-            {'name':'Teste'},
-            {'name':'Teste1'},
-            {'name':'Teste2'},
-            {'name':'Teste'},
-            {'name':'Teste1'},
-            {'name':'Teste2'},
-            {'name':'Teste'},
-            {'name':'Teste1'},
-            {'name':'Teste2'},
-            {'name':'Teste'},
-            {'name':'Teste1'},
-            {'name':'Teste2'},
-            {'name':'Teste'},
-            {'name':'Teste1'},
-            {'name':'Teste2'},
-            {'name':'Teste'},
-            {'name':'Teste1'},
-            {'name':'Teste2'},
-            {'name':'Teste'},
-            {'name':'Teste1'},
-            {'name':'Teste2'},
-            {'name':'Teste'},
-            {'name':'Teste1'},
-            {'name':'Teste2'},
-            {'name':'Teste'},
-            {'name':'Teste1'},
-            {'name':'Teste2'},
-            {'name':'Teste'},
-            {'name':'Teste1'},
-            {'name':'Teste2'},
-            {'name':'Teste'},
-            {'name':'Teste1'},
-            {'name':'Teste2'},
-            {'name':'Teste'},
-            {'name':'Teste1'},
-            {'name':'Teste2'},
-            {'name':'Teste'},
-            {'name':'Teste1'},
-            {'name':'Teste2'},
-            {'name':'Teste'},
-            {'name':'Teste1'},
-            {'name':'Teste2'},
-            {'name':'Teste'},
-            {'name':'Teste1'},
-            {'name':'Teste2'},
-            {'name':'Teste'},
-            {'name':'Teste1'},
-            {'name':'Teste2'},
-            {'name':'Teste'},
-            {'name':'Teste1'},
-            {'name':'Teste2'},
-            {'name':'Teste'},
-            {'name':'Teste1'},
-            {'name':'Teste2'},
-            {'name':'Teste'},
-            {'name':'Teste1'},
-            {'name':'Teste2'},
-            {'name':'Teste'},
-            {'name':'Teste1'},
-            {'name':'Teste2'},
-            {'name':'Teste'},
-            {'name':'Teste1'},
-            {'name':'Teste2'},
-        ]
-        
-        elements.append(Paragraph('My User Names', styles['Heading1']))
-        for i, user in enumerate(users):
-            elements.append(Paragraph(user['name'], styles['Normal']))
 
         flow_obj = []
         data = [[str(x) for x in range(1, 11)], [str(x) for x in range(1, 11)], [str(x) for x in range(1, 11)], [str(x) for x in range(1, 11)]]
@@ -256,8 +137,12 @@ class NumberedCanvas(canvas.Canvas):
  
     def draw_page_number(self, page_count):
         # Change the position of this to wherever you want the page number to be
-        self.drawRightString(211 * mm, 15 * mm + (0.2 * inch),
+        self.setFont("Helvetica", .15 * inch)
+        self.drawRightString(35 * mm, 5 * mm + (0.1 * inch),
                              "Page %d of %d" % (self._pageNumber, page_count))
+        self.setStrokeColor(colors.darkblue) #LINE COLOR
+        self.setLineWidth(.2)
+        self.line(0.5*inch,.5*inch,8*inch,.5*inch)
 
 
 
