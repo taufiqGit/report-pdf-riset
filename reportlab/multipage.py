@@ -7,6 +7,8 @@ from reportlab.lib.units import inch
 from reportlab.pdfgen import canvas
 from reportlab.lib.units import mm    
 from reportlab.lib import colors
+from data_table import data_invoice
+import datetime
  
 class MyPrint:
 
@@ -20,7 +22,6 @@ class MyPrint:
 
     @staticmethod
     def _header_footer(canvas, doc):
-        # Save the state of our canvas so we can draw on it
         canvas.saveState()
         styles = getSampleStyleSheet()
  
@@ -31,11 +32,12 @@ class MyPrint:
         header.drawOn(canvas, doc.leftMargin, doc.height + 120 - h)
  
         # Footer
-        footer = Paragraph('footer', styles['Normal'])
+        date = datetime.datetime.now()
+        footer = Paragraph( str(date.day) + "-"+ str(date.month)+ "-" + str(date.year), styles['Normal'])
         w, h = footer.wrap(doc.width, doc.bottomMargin)
-        footer.drawOn(canvas, doc.leftMargin + 120, h)
+        footer.drawOn(canvas, doc.leftMargin + 420, h)
  
-        # Release the canvas
+        # create canvas
         canvas.restoreState()
 
 
@@ -63,12 +65,12 @@ class MyPrint:
 # t_style = TableStyle([("GRID", (0,0), (-5, -2), .1, colors.red),
 #                       ("GRID", (4,1), (-1, -1), .1, colors.green)])
         t_style = TableStyle([("BOX", (0,0), (-1, -1), 2, colors.red),
-                      ("FONT", (0,0), (-1, -1), "Helvetica", 20),
+                      ("FONT", (0,0), (-1, -1), "Helvetica", 10),
                       ("TEXTCOLOR", (0,0), (-1,-1), colors.white),
                       ("BACKGROUND", (0,0), (-1, -1), colors.blue),
                       ("BACKGROUND", (4,1), (-1, -1), colors.green), 
                       ])
-        t = Table(data)
+        t = Table(data_invoice)
         t.setStyle(t_style)
         flow_obj.append(t)
         flow_obj.append(t)
@@ -137,7 +139,7 @@ class NumberedCanvas(canvas.Canvas):
  
     def draw_page_number(self, page_count):
         # Change the position of this to wherever you want the page number to be
-        self.setFont("Helvetica", .15 * inch)
+        self.setFont("Helvetica", .11 * inch)
         self.drawRightString(35 * mm, 5 * mm + (0.1 * inch),
                              "Page %d of %d" % (self._pageNumber, page_count))
         self.setStrokeColor(colors.darkblue) #LINE COLOR
