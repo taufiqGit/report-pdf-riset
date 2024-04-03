@@ -78,26 +78,26 @@ class MyPrint:
 # t_style = TableStyle([("GRID", (0,0), (-5, -2), .1, colors.red),
 #                       ("GRID", (4,1), (-1, -1), .1, colors.green)])
         t_style = TableStyle([("BOX", (0,0), (-1, -1), 2, colors.white),
-                      ("FONT", (0,0), (-1, -1), "Helvetica", 9),
+                      ("FONT", (0,0), (-1, -1), "Helvetica", 8),
                       ("TEXTCOLOR", (0,0), (-1,1), colors.white),
-                      ("FONT", (0,0), (-1, 0), "Helvetica-Bold", 10),
-                      ("FONT", (0,2), (-1, 2), "Helvetica-Bold", 10),
+                      ("FONT", (0,0), (-1, 0), "Helvetica-Bold", 9),
+                      ("FONT", (0,2), (-1, 2), "Helvetica-Bold", 9),
                       #("FONTSIZE", (0, 0), (-1, 1), 20),
                       ("BACKGROUND", (0,0), (-1, 0), colors.darkblue),
                       ("TEXTCOLOR", (0,1), (-1,1), colors.black),
                       ("TEXTCOLOR", (0,2), (-1,2), colors.white),
                       ("BACKGROUND", (0,2), (-1, 2), colors.darkblue),
-                      ("FONT", (0, -1), (-1, -1), "Helvetica-Bold", 10),
+                      ("FONT", (0, -1), (-1, -1), "Helvetica-Bold", 9),
                       ('VALIGN',(0,0),(-1,-1),'MIDDLE'),
                       ])
-        t = Table(data_invoice, rowHeights=.4*inch, colWidths=[2*inch,1.5*inch,1.5*inch,1.5*inch, 1.5*inch, 2.2*inch])
+        t = Table(data_invoice, rowHeights=.2*inch, colWidths=[2*inch,1.5*inch,1.5*inch,1.5*inch, 1.5*inch, 2.2*inch])
         
         t.setStyle(t_style)
 
         # generate 15 table
         for x in range(1, 15):
             flow_obj.append(t)
-            flow_obj.append(Spacer(1,0.4*inch))
+            flow_obj.append(Spacer(1,0.2*inch))
 
         doc.build(flow_obj, onFirstPage=self._header_footer, onLaterPages=self._header_footer,
                   canvasmaker=NumberedCanvas)
