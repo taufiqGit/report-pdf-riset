@@ -9,6 +9,7 @@ from reportlab.lib.units import mm
 from reportlab.lib import colors
 from data_table import data_invoice
 import datetime
+import math
  
 class MyPrint:
 
@@ -77,7 +78,7 @@ class MyPrint:
         data = [[str(x) for x in range(1, 11)], [str(x) for x in range(1, 11)], [str(x) for x in range(1, 11)], [str(x) for x in range(1, 11)]]
 # t_style = TableStyle([("GRID", (0,0), (-5, -2), .1, colors.red),
 #                       ("GRID", (4,1), (-1, -1), .1, colors.green)])
-        t_style = TableStyle([("BOX", (0,0), (-1, -1), 2, colors.white),
+        arr_style = [("BOX", (0,0), (-1, -1), 2, colors.white),
                       ("FONT", (0,0), (-1, -1), "Helvetica", 8),
                       ("TEXTCOLOR", (0,0), (-1,1), colors.white),
                       ("FONT", (0,0), (-1, 0), "Helvetica-Bold", 9),
@@ -88,25 +89,41 @@ class MyPrint:
                       ("TEXTCOLOR", (0,2), (-1,2), colors.white),
                       ("BACKGROUND", (0,2), (-1, 2), colors.darkblue),
                       ("FONT", (0, -1), (-1, -1), "Helvetica-Bold", 9),
-                      ('VALIGN',(0,0),(-1,-1),'MIDDLE'),
-                      ])
+                      ('VALIGN',(0,0),(-1,-1),'MIDDLE')
+                      ]
         
         for x in data_invoice: 
             print(len(x))       
             hh = False
-            t = Table(x, rowHeights=.2*inch, colWidths=[2*inch,1.5*inch,1.5*inch,1.5*inch, 1.5*inch, 2.2*inch])
         
-            t.setStyle(t_style)
-            if hh:
-                flow_obj.append(PageBreak())
-            flow_obj.append(t)
+            
             if len(x) < 34:
+                t_style = TableStyle(arr_style)
+                t = Table(x, rowHeights=.2*inch, colWidths=[2*inch,1.5*inch,1.5*inch,1.5*inch, 1.5*inch, 2.2*inch])
+                t.setStyle(t_style)
+                flow_obj.append(t)
                 flow_obj.append(PageBreak())
                 hh = False
             else:
-                hh = True
+                gsg = len(x) / 34
+                selat = 34
+                t_style = TableStyle(arr_style)
+
+                for f in [x for x in range(0, math.floor(gsg))]:
+                    t_style.add("BACKGROUND", (0, selat), (-1, selat), colors.darkblue)
+                    t_style.add("FONT", (0,selat), (-1, selat), "Helvetica-Bold", 9)
+                    t_style.add("TEXTCOLOR", (0,selat), (-1,selat), colors.white)
+                    print(f, 'jsjsj', selat)
+                    x.insert(selat, ["Transaction Code", "Date", "Debit Mutation", "Credit Mutation", "Balance", "Description"])
+                    selat += 34
+                t = Table(x, rowHeights=.2*inch, colWidths=[2*inch,1.5*inch,1.5*inch,1.5*inch, 1.5*inch, 2.2*inch])
+                
+                
+                t.setStyle(t_style)
+                flow_obj.append(t)
+                
                 flow_obj.append(PageBreak())
-                print('kkkk')
+                print('kkkk', math.floor(gsg))
             # flow_obj.append(Spacer(1, .2*inch))
 
         doc.multiBuild(flow_obj, onFirstPage=self._header_footer, onLaterPages=self._header_footer,
